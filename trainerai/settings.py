@@ -10,26 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
-import os
-from dotenv import load_dotenv, dotenv_values
-
-from pathlib import Path
-
-# Build the dotenv
-load_dotenv()
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+from trainerai.env_configuration import env
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = env("SECRET_KEY")
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ["/"]
 
@@ -78,12 +65,8 @@ WSGI_APPLICATION = 'trainerai.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-# TO_UPDATE
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': BASE_DIR / 'db.postgresql',
-    }
+        'default': env.db_url(),
 }
 
 CORS_ORIGIN_WHITELIST=(

@@ -2,10 +2,9 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-from dotenv import load_dotenv
+from trainerai.env_configuration import env
 
 def main():
-    load_dotenv()
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'trainerai.settings')
     try:
@@ -19,8 +18,8 @@ def main():
 
     # this is to run the server from the dotenv
     if len(sys.argv) == 1 and sys.argv[1] == "runserver":
-        url = os.getenv("URL")
-        port = os.getenv("PORT")
+        url = env("URL")
+        port = env("PORT")
         sys.argv.append(f'{url}:{port}')
 
     execute_from_command_line(sys.argv)
