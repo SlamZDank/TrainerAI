@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
-from trainerai.env_configuration import env
+from trainerai.env_config import env
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
@@ -18,12 +18,13 @@ from trainerai.env_configuration import env
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ["/"]
+ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -60,6 +61,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'trainerai.wsgi.application'
+ASGI_APPLICATION = 'trainerai.asgi.application'
 
 
 # Database
@@ -69,10 +71,7 @@ DATABASES = {
         'default': env.db_url(),
 }
 
-CORS_ORIGIN_WHITELIST=(
-        '0.0.0.0:4000'
-        'localhost:4000'
-)
+CORS_ORIGIN_WHITELIST=()
 
 
 # Password validation
@@ -104,6 +103,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
 
 
 # Static files (CSS, JavaScript, Images)

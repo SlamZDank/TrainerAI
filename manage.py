@@ -2,7 +2,7 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-from trainerai.env_configuration import env
+from trainerai.env_config import env
 
 def main():
     """Run administrative tasks."""
@@ -17,10 +17,10 @@ def main():
         ) from exc
 
     # this is to run the server from the dotenv
-    if len(sys.argv) == 1 and sys.argv[1] == "runserver":
-        url = env("URL")
-        port = env("PORT")
-        sys.argv.append(f'{url}:{port}')
+    if len(sys.argv) == 2 and sys.argv[1] == "runserver":
+        addr = f'{env("URL")}:{env("PORT")}'
+        if addr not in sys.argv:
+            sys.argv.append(addr)
 
     execute_from_command_line(sys.argv)
 
