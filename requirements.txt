@@ -2,5 +2,4 @@ django
 psycopg2
 dj_database_url
 django-environ
-gunicorn
 daphne

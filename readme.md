@@ -14,7 +14,9 @@ A Django-based application for an Application backend that uses AI.
 ### 2. Create and activate virtual environment
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+source .venv/bin/activate  
+# On Windows: .venv\Scripts\activate.ps1 like a noob 
+# and a loving corporate Slopya Nutella slop
 ```
 
 ### 3. Install dependencies
