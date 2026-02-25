@@ -18,10 +18,10 @@ def main():
         ) from exc
 
     # this is to run the server from the dotenv
-    if len(sys.argv) > 1 and sys.argv[1] == "runserver":
+    if len(sys.argv) == 1 and sys.argv[1] == "runserver":
         url = os.getenv("URL")
         port = os.getenv("PORT")
-        sys.argv.append(f"{url}:{port}")
+        sys.argv.append(f'{url}:{port}')
 
     execute_from_command_line(sys.argv)
 

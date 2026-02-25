@@ -1,2 +1,4 @@
 django
-psycopg
+psycopg2
+dj_database_url
+environ
