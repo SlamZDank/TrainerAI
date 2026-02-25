@@ -1,12 +1,11 @@
 # TrainerAI
-
-A Django-based application for AI training and management.
+A Django-based application for an Application backend that uses AI.
 
 ## Prerequisites
 
 - Python 3.8+
-- Docker (for database)
-- PostgreSQL (if not using Docker)
+- Podman / Docker
+- PostgreSQL
 
 ## Setup
 
@@ -30,10 +29,10 @@ cp .env.example .env
 ```
 
 ### 5. Database setup
-#### Option A: Using Docker (Recommended)
+#### Option A: Using Podman (Recommended)
 Start the PostgreSQL database:
 ```bash
-docker-compose up -d
+podman-compose up -d
 ```
 
 #### Option B: Local PostgreSQL
@@ -56,7 +55,7 @@ python manage.py runserver
 
 The application will be available at `http://127.0.0.1:8000/`
 
-## Docker Commands
+## Podman Commands
 
 - Start database: `podman-compose up -d`
 - Stop database: `podman-compose down`
