@@ -18,7 +18,7 @@ from trainerai.env_config import env
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0"]
+ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0","localhost"]
 
 
 # Application definition
