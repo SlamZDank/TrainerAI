@@ -1,3 +1,3 @@
 .env
 trainerai/__pycache__/*
-__pycache__/*
+trainerai/apps/*/__pycache__/*
