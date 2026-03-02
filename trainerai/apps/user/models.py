@@ -1,11 +1,12 @@
+import uuid
 from typing import final
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from trainerai.apps.authentication.models import User
 
-# Create your models here.
 @final
 class UserProfile(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     class GenderChoices(models.TextChoices):
         MALE = "Male"
         FEMALE = "Female"
@@ -30,8 +31,8 @@ class UserProfile(models.Model):
     current_weight_kg = models.DecimalField(max_digits=5, decimal_places=2, null = True, validators=[MinValueValidator(20), MaxValueValidator(500)])
     height_cm = models.DecimalField(max_digits=5, decimal_places=2, null = True, validators=[MinValueValidator(50), MaxValueValidator(300)])
     target_weight_kg = models.DecimalField(max_digits=5, decimal_places=2, null = True, validators=[MinValueValidator(20), MaxValueValidator(500)])
-    fitness_goal = models.TextChoices(max_length = 20, choices = FitnessGoalChoices.choices)
-    activity_level = models.TextChoices(max_length = 20, choices = ActivityLevelChoices.choices)
+    fitness_goal = models.CharField(max_length = 20, choices = FitnessGoalChoices.choices)
+    activity_level = models.CharField(max_length = 20, choices = ActivityLevelChoices.choices)
     dietary_preferences = models.JSONField()
     dietary_other_text = models.CharField(max_length = 500, blank = True)
     disclaimer_accepted_at = models.DateTimeField(null = False)

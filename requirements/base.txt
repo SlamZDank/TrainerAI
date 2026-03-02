@@ -4,3 +4,5 @@ dj-database-url
 django-environ
 daphne
 djangorestframework
+djangorestframework-simplejwt
+django-cors-headers
