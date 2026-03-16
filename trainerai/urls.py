@@ -20,4 +20,5 @@ from django.urls import include, path
 urlpatterns = [
     path('api/', include("trainerai.apps.authentication.urls")),
     path('api/', include("trainerai.apps.user.urls")),
+    path('api/', include("trainerai.apps.chat.urls")),
 ]

@@ -11,6 +11,11 @@ from .serializers import UserProfileSerializer
 class ProfileCreateView(APIView):
     permission_classes = [IsAuthenticated]
 
+    def get(self, request):
+        if not hasattr(request.user, "profile"):
+            return Response({"errors": {"detail": "Profile not found."}}, status=status.HTTP_404_NOT_FOUND)
+        return Response(UserProfileSerializer(request.user.profile).data)
+
     def post(self, request):
         if hasattr(request.user, "profile"):
             return Response(
