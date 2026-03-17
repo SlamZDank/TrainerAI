@@ -35,3 +35,14 @@ class ProfileCreateView(APIView):
             },
         )
         return Response(UserProfileSerializer(profile).data, status=status.HTTP_201_CREATED)
+
+    def patch(self, request):
+        if not hasattr(request.user, "profile"):
+            return Response({"errors": {"detail": "Profile not found."}}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = UserProfileSerializer(request.user.profile, data=request.data, partial=True)
+        if not serializer.is_valid():
+            return Response({"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer.save()
+        return Response(serializer.data)

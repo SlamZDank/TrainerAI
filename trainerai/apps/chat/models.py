@@ -10,6 +10,7 @@ class ChatSession(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    title = models.CharField(max_length=200, blank=True, default='')
 
     class Meta:
         ordering = ["-created_at"]

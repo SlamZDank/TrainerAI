@@ -30,6 +30,16 @@ class ChatSessionDetailView(APIView):
         except ChatSession.DoesNotExist:
             return None
 
+    def patch(self, request, session_id):
+        session = self._get_session(request, session_id)
+        if session is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = ChatSessionSerializer(session, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     def delete(self, request, session_id):
         session = self._get_session(request, session_id)
         if session is None:
