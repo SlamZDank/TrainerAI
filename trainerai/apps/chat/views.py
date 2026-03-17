@@ -3,8 +3,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import ChatSession, ChatMessage
-from .serializers import ChatSessionSerializer, ChatMessageSerializer
+from .models import ChatSession, ChatMessage, WorkoutPlan, DietPlan
+from .serializers import ChatSessionSerializer, ChatMessageSerializer, WorkoutPlanSerializer, DietPlanSerializer
 
 
 class ChatSessionListCreateView(APIView):
@@ -80,3 +80,51 @@ class ChatMessageListCreateView(APIView):
         # Touch the session's updated_at
         session.save(update_fields=["updated_at"])
         return Response(ChatMessageSerializer(message).data, status=status.HTTP_201_CREATED)
+
+
+class WorkoutPlanListCreateView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        plans = WorkoutPlan.objects.filter(user=request.user)
+        return Response(WorkoutPlanSerializer(plans, many=True).data)
+
+    def post(self, request):
+        session = None
+        session_id = request.data.get("session_id")
+        if session_id:
+            try:
+                session = ChatSession.objects.get(id=session_id, user=request.user)
+            except ChatSession.DoesNotExist:
+                pass
+        plan = WorkoutPlan.objects.create(
+            user=request.user,
+            session=session,
+            title=request.data.get("title", ""),
+            content=request.data.get("content", ""),
+        )
+        return Response(WorkoutPlanSerializer(plan).data, status=status.HTTP_201_CREATED)
+
+
+class DietPlanListCreateView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        plans = DietPlan.objects.filter(user=request.user)
+        return Response(DietPlanSerializer(plans, many=True).data)
+
+    def post(self, request):
+        session = None
+        session_id = request.data.get("session_id")
+        if session_id:
+            try:
+                session = ChatSession.objects.get(id=session_id, user=request.user)
+            except ChatSession.DoesNotExist:
+                pass
+        plan = DietPlan.objects.create(
+            user=request.user,
+            session=session,
+            title=request.data.get("title", ""),
+            content=request.data.get("content", ""),
+        )
+        return Response(DietPlanSerializer(plan).data, status=status.HTTP_201_CREATED)

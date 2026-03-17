@@ -31,3 +31,27 @@ class ChatMessage(models.Model):
 
     class Meta:
         ordering = ["created_at"]
+
+
+class WorkoutPlan(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="workout_plans")
+    session = models.ForeignKey(ChatSession, null=True, blank=True, on_delete=models.SET_NULL)
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+
+class DietPlan(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="diet_plans")
+    session = models.ForeignKey(ChatSession, null=True, blank=True, on_delete=models.SET_NULL)
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
