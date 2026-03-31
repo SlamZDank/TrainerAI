@@ -6,5 +6,7 @@ urlpatterns = [
     path("chat/sessions/<uuid:session_id>/", views.ChatSessionDetailView.as_view(), name="chat-session-detail"),
     path("chat/sessions/<uuid:session_id>/messages/", views.ChatMessageListCreateView.as_view(), name="chat-messages"),
     path("chat/workout-plans/", views.WorkoutPlanListCreateView.as_view(), name="workout-plans"),
+    path("chat/workout-plans/<uuid:plan_id>/", views.WorkoutPlanDetailView.as_view(), name="workout-plan-detail"),
     path("chat/diet-plans/", views.DietPlanListCreateView.as_view(), name="diet-plans"),
+    path("chat/diet-plans/<uuid:plan_id>/", views.DietPlanDetailView.as_view(), name="diet-plan-detail"),
 ]

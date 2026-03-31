@@ -128,3 +128,69 @@ class DietPlanListCreateView(APIView):
             content=request.data.get("content", ""),
         )
         return Response(DietPlanSerializer(plan).data, status=status.HTTP_201_CREATED)
+
+
+class WorkoutPlanDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def _get_plan(self, request, plan_id):
+        try:
+            return WorkoutPlan.objects.get(id=plan_id, user=request.user)
+        except WorkoutPlan.DoesNotExist:
+            return None
+
+    def get(self, request, plan_id):
+        plan = self._get_plan(request, plan_id)
+        if not plan:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(WorkoutPlanSerializer(plan).data)
+
+    def patch(self, request, plan_id):
+        plan = self._get_plan(request, plan_id)
+        if not plan:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = WorkoutPlanSerializer(plan, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, plan_id):
+        plan = self._get_plan(request, plan_id)
+        if not plan:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        plan.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class DietPlanDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def _get_plan(self, request, plan_id):
+        try:
+            return DietPlan.objects.get(id=plan_id, user=request.user)
+        except DietPlan.DoesNotExist:
+            return None
+
+    def get(self, request, plan_id):
+        plan = self._get_plan(request, plan_id)
+        if not plan:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(DietPlanSerializer(plan).data)
+
+    def patch(self, request, plan_id):
+        plan = self._get_plan(request, plan_id)
+        if not plan:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = DietPlanSerializer(plan, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, plan_id):
+        plan = self._get_plan(request, plan_id)
+        if not plan:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        plan.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
