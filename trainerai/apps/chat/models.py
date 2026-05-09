@@ -26,7 +26,8 @@ class ChatMessage(models.Model):
         to=ChatSession, null=False, on_delete=models.CASCADE, related_name="messages"
     )
     role = models.CharField(max_length=5, choices=Role.choices, null=False)
-    content = models.TextField(blank=False, null=False)
+    content = models.TextField(blank=True, default="")
+    parts = models.JSONField(default=list, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
