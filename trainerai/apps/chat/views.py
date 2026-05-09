@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -95,7 +96,7 @@ class WorkoutPlanListCreateView(APIView):
         if session_id:
             try:
                 session = ChatSession.objects.get(id=session_id, user=request.user)
-            except ChatSession.DoesNotExist:
+            except (ChatSession.DoesNotExist, ValidationError):
                 pass
         plan = WorkoutPlan.objects.create(
             user=request.user,
@@ -119,7 +120,7 @@ class DietPlanListCreateView(APIView):
         if session_id:
             try:
                 session = ChatSession.objects.get(id=session_id, user=request.user)
-            except ChatSession.DoesNotExist:
+            except (ChatSession.DoesNotExist, ValidationError):
                 pass
         plan = DietPlan.objects.create(
             user=request.user,
