@@ -21,4 +21,5 @@ urlpatterns = [
     path('api/', include("trainerai.apps.authentication.urls")),
     path('api/', include("trainerai.apps.user.urls")),
     path('api/', include("trainerai.apps.chat.urls")),
+    path('api/', include("trainerai.apps.routines.urls")),
 ]

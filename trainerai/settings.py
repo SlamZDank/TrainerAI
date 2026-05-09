@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'trainerai.apps.authentication',
     'trainerai.apps.user',
     'trainerai.apps.chat',
+    'trainerai.apps.routines',
 ]
 
 MIDDLEWARE = [
