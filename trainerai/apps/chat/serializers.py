@@ -5,11 +5,14 @@ from .models import ChatSession, ChatMessage, WorkoutPlan, DietPlan
 class ChatMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatMessage
-        fields = ["id", "session", "role", "content", "created_at"]
+        fields = ["id", "session", "role", "content", "parts", "created_at"]
         read_only_fields = ["id", "created_at"]
 
     def validate_content(self, value):
-        if not value.strip():
+        parts = self.initial_data.get("parts")
+        if parts and len(parts) > 0:
+            return value
+        if not value or not value.strip():
             raise serializers.ValidationError("Message content cannot be empty.")
         return value
 
