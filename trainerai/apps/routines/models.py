@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from django.utils import timezone
 from trainerai.apps.authentication.models import User
 
 class Routine(models.Model):
@@ -24,6 +25,7 @@ class Routine(models.Model):
     end_time = models.TimeField()
     day_name = models.CharField(max_length=10, choices=DayName.choices)
     status = models.CharField(max_length=10, choices=Status.choices, default=Status.NOT_DONE)
+    last_status_update = models.DateField(default=timezone.now)
 
     class Meta:
         app_label = 'routines'

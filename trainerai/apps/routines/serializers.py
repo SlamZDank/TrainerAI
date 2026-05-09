@@ -4,8 +4,8 @@ from .models import Routine
 class RoutineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Routine
-        fields = ["id", "activity_name", "activity_description", "start_time", "end_time", "day_name", "status"]
-        read_only_fields = ["id"]
+        fields = ["id", "activity_name", "activity_description", "start_time", "end_time", "day_name", "status", "last_status_update"]
+        read_only_fields = ["id", "last_status_update"]
 
     def validate(self, data):
         # Handle partial updates (PATCH)
@@ -34,6 +34,9 @@ class RoutineSerializer(serializers.ModelSerializer):
             ).exists()
 
             if conflicts:
-                raise serializers.ValidationError("This routine conflicts with an existing one on the same day.")
+                raise serializers.ValidationError({
+                    "non_field_errors": ["This routine conflicts with an existing one on the same day."],
+                    "code": "overlap_conflict"
+                })
 
         return data
