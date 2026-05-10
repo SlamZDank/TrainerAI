@@ -1,74 +1,82 @@
-# TrainerAI
-A Django-based application for an Application backend that uses AI.
+# TrainerAI Backend
 
-## Prerequisites
+**Author:** Mohammed Amine Slama — ING A2, Groupe 4
 
-- Python 3.8+
-- Podman / Docker
-- PostgreSQL
+Django REST API backend providing AI-powered fitness training services. Handles user management, workout/diet plan generation, and chat functionality.
 
-## Setup
+## Features
+
+- **User Authentication** — JWT-based authentication system
+- **AI Integration** — Generates personalized workout and diet plans via AI
+- **Chat API** — Real-time chat endpoint for AI assistant interactions
+- **Database Management** — PostgreSQL for persistent data storage
+
+## Tech Stack
+
+- **Framework:** Django 5.x
+- **Database:** PostgreSQL
+- **Container:** Podman/Docker
+- **Python:** 3.8+
+
+## Getting Started
 
 ### 1. Clone the repository
 
-### 2. Create and activate virtual environment
 ```bash
-python -m venv .venv
-source .venv/bin/activate  
-# On Windows: .venv\Scripts\activate.ps1 like a noob 
-# and a loving corporate Slopya Nutella slop
+git clone https://github.com/SlamZDank/TrainerAI.git
+cd TrainerAI
+```
+
+### 2. Create and activate virtual environment
+
+```bash
+source .venv/bin/activate.fish
 ```
 
 ### 3. Install dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Environment configuration
-Copy the environment example file:
+### 4. Configure environment
+
 ```bash
 cp .env.example .env
 ```
 
-### 5. Database setup
-#### Option A: Using Podman (Recommended)
-Start the PostgreSQL database:
+Update the `.env` file with your values:
+
+```bash
+DEBUG=on
+SECRET_KEY=your_secret_key
+URL=0.0.0.0
+PORT=8080
+DATABASE_URL=postgres://postgres:postgres@localhost:9500/trainer-ai
+```
+
+### 5. Start database
+
 ```bash
 podman-compose up -d
 ```
 
-#### Option B: Local PostgreSQL
-Install PostgreSQL and create a database named `trainerai`.
-
 ### 6. Run migrations
+
 ```bash
 python manage.py migrate
 ```
 
-### 7. Create superuser (optional)
-```bash
-python manage.py createsuperuser
-```
+### 7. Start server
 
-### 8. Start the development server
 ```bash
 python manage.py runserver
 ```
 
-The application will be available at `http://127.0.0.1:8000/`
+The backend runs on `http://127.0.0.1:8000`.
 
 ## Podman Commands
 
 - Start database: `podman-compose up -d`
 - Stop database: `podman-compose down`
 - View logs: `podman-compose logs`
-
-## Environment Variables
-
-The following variables are available in `.env`:
-
-- `DEBUG`: Enable/disable debug mode
-- `SECRET_KEY`: Django secret key
-- `URL`: Server URL
-- `PORT`: Server port
-- `DATABASE_URL`: PostgreSQL connection string
