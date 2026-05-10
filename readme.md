@@ -2,7 +2,7 @@
 
 **Author:** Mohammed Amine Slama — ING A2, Groupe 4
 
-Django REST API backend providing AI-powered fitness training services. Handles user management, workout/diet plan generation, and chat functionality.
+Django REST API backend providing AI-powered fitness training services that complements frontend AI capabilities. Handles user management, workout/diet plan generation, and chat functionality.
 
 ## Features
 
@@ -29,14 +29,17 @@ cd TrainerAI
 
 ### 2. Create and activate virtual environment
 
-```bash
-source .venv/bin/activate.fish
+```
+source .venv/bin/activate                   # Linux / MacOS with bash / zsh
+source .venv/bin/activate.fish              # Unix Systems with fish shell
+.venv\Scripts\Activate.ps1                  # Windows
 ```
 
 ### 3. Install dependencies
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements/base.txt
+pip install -r requirements/dev.txt
 ```
 
 ### 4. Configure environment
@@ -77,6 +80,6 @@ The backend runs on `http://127.0.0.1:8000`.
 
 ## Podman Commands
 
-- Start database: `podman-compose up -d`
-- Stop database: `podman-compose down`
-- View logs: `podman-compose logs`
+- Start database: `podman-compose up -d` or `docker compose up -d`
+- Stop database: `podman-compose down` or `docker compose down`
+- View logs: `podman-compose logs` or `docker compose logs`
